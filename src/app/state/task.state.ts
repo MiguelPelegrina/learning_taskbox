@@ -2,11 +2,13 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Task } from "../models/task.model";
 import { Injectable } from "@angular/core";
 import { patch, updateItem } from "@ngxs/store/operators";
+import { TaskStateModel } from "../models/task.state.model";
 
 // Defines the actions available to the app
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
-  PIN_TASK: 'PIN_TASK'
+  PIN_TASK: 'PIN_TASK',
+  ERROR: 'APP_ERROR',
 }
 
 export class ArchiveTask {
@@ -21,6 +23,13 @@ export class PinTask {
   constructor(public payload: string){}
 }
 
+// The class definition for our error field
+export class AppError {
+  static readonly type = actions.ERROR;
+
+  constructor(public payload: boolean) {}
+}
+
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
 const defaultTasks = [
@@ -29,12 +38,6 @@ const defaultTasks = [
   { id: '3', title: 'Something else', state: 'TASK_INBOX' },
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
-
-export interface TaskStateModel {
-  tasks: Task[];
-  status: 'idle' | 'loading' | 'success' | 'error';
-  error: boolean;
-}
 
 // Sets the default state
 @State<TaskStateModel>({
@@ -103,5 +106,17 @@ export class TasksState {
         })
       )
     }
+  }
+
+  // Function to handle how the state should be updated when the action is triggered
+  @Action(AppError)
+  setAppError(
+    { patchState, getState }: StateContext<TaskStateModel>,
+    { payload }: AppError
+  ) {
+    const state = getState();
+    patchState({
+      error: !state.error,
+    });
   }
 }

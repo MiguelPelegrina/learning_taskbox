@@ -1,6 +1,5 @@
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '../../models/task.model';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { ArchiveTask, PinTask } from 'src/app/state/task.state';

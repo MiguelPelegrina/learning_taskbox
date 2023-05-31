@@ -25,14 +25,14 @@ import { Task } from '../../models/task.model';
     @Input()
     set tasks(arr: Task[]) {
       const initialTasks = [
-        ...arr.filter((t) => t.state === 'TASK_PINNED'),
-        ...arr.filter((t) => t.state !== 'TASK_PINNED'),
+        ...arr.filter((task) => task.state === 'TASK_PINNED'),
+        ...arr.filter((task) => task.state !== 'TASK_PINNED'),
       ];
       const filteredTasks = initialTasks.filter(
-        (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+        (task) => task.state === 'TASK_INBOX' || task.state === 'TASK_PINNED'
       );
       this.tasksInOrder = filteredTasks.filter(
-        (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+        (task) => task.state === 'TASK_INBOX' || task.state === 'TASK_PINNED'
       );
     }
  }
