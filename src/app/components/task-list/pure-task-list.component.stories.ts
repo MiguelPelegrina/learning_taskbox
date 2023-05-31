@@ -1,19 +1,20 @@
+
 import type { Meta, StoryObj } from '@storybook/angular';
 import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import TaskListComponent from './task-list.component';
+import PureTaskListComponent from './pure-task-list.component';
 import TaskComponent from '../task/task.component';
-import * as TaskStories from '../task/task.stories';
+import * as TaskStories from '../task/task.stories'
 
-const meta: Meta<TaskListComponent> = {
-  component: TaskListComponent,
-  id: 'TaskList',
-  title: 'TaskList',
+const meta: Meta<PureTaskListComponent> = {
+  id: 'PureTaskListComponent',
+  component: PureTaskListComponent,
+  title: 'PureTaskList',
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       //👇 Imports both components to allow component composition with Storybook
-      declarations: [TaskListComponent, TaskComponent],
+      declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
     //👇 Wraps our stories with a decorator
@@ -21,7 +22,7 @@ const meta: Meta<TaskListComponent> = {
       (story) => `<div style="margin: 3em">${story}</div>`
     ),
   ],
-  render: (args: TaskListComponent) => ({
+  render: (args: PureTaskListComponent) => ({
     props: {
       ...args,
       onPinTask: TaskStories.actionsData.onPinTask,
@@ -29,9 +30,8 @@ const meta: Meta<TaskListComponent> = {
     },
   }),
 };
-
 export default meta;
-type Story = StoryObj<TaskListComponent>;
+type Story = StoryObj<PureTaskListComponent>;
 
 export const Default: Story = {
   args: {

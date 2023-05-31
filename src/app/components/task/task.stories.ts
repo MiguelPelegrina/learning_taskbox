@@ -9,7 +9,7 @@ export const actionsData = {
 };
 
 const meta: Meta<TaskComponent> = {
-  id: 'Task',
+  id: 'TaskComponent',
   title: 'Task',
   component: TaskComponent,
   excludeStories: /.*Data$/,
